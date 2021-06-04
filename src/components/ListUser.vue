@@ -1,17 +1,33 @@
 <template>
 
   <div>
-    <b-table striped hover :items="users" :fields="fields"></b-table>
-    <b-pagination
-      v-model="page"
-      :total-rows="count"
-      :per-page="pageSize"
-      first-text="First"
-      prev-text="Prev"
-      next-text="Next"
-      last-text="Last"
-      @change="handlePageChange"
-    ></b-pagination>
+    <div>
+      <router-link :to="{name: 'CreateUser'}">CreateUser</router-link>
+
+    </div>
+    <div>
+        <tr v-for="(user,index) in users" :key="index">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>
+            <img :src="user.avatar"/>
+          </td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.createdAt }}</td>
+        </tr>
+    </div>
+    <div>
+      <b-pagination
+        v-model="page"
+        :total-rows="count"
+        :per-page="pageSize"
+        first-text="First"
+        prev-text="Prev"
+        next-text="Next"
+        last-text="Last"
+        @change="handlePageChange"
+      ></b-pagination>
+    </div>
   </div>
 
 </template>
