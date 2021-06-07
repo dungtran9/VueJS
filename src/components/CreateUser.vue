@@ -6,6 +6,9 @@
   >
     <form @submit.prevent="handleSubmit()">
       <ValidationProvider name="Name" rules="required" v-slot="{ errors }">
+        <div>
+          <h3>CREATE USER</h3>
+        </div>
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-2 col-form-label"
             >Name</label

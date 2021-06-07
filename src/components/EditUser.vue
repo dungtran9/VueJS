@@ -5,8 +5,10 @@
     @submit.prevent="onSubmit($route.params.id)"
   >
     <form @submit.prevent="handleSubmit()">
-      <label></label>
       <ValidationProvider name="Name" rules="required" v-slot="{ errors }">
+        <div>
+          <h3>EDIT USER</h3>
+        </div>
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-2 col-form-label"
             >Name</label
@@ -49,7 +51,7 @@
       </ValidationProvider>
       <br />
       <b-button variant="success" type="submit">
-        Submit
+        Save
       </b-button>
     </form>
   </ValidationObserver>
@@ -62,7 +64,6 @@ export default {
   name: "EditUser",
   data() {
     return {
-      id: this.$route.params.id,
       name: this.$route.params.userDetail.name,
       avatar: this.$route.params.userDetail.avatar,
       email: this.$route.params.userDetail.email
@@ -77,6 +78,7 @@ export default {
         return;
       } else {
         this.submitForm(id);
+        await this.$router.push({ name: "ListUser" });
         alert("update thanh cong");
       }
     },
