@@ -2,9 +2,10 @@
   <ValidationObserver
     v-slot="{ handleSubmit }"
     ref="form"
-    @submit.prevent="onSubmit()"
+    @submit.prevent="onSubmit($route.params.id)"
   >
     <form @submit.prevent="handleSubmit()">
+      <label></label>
       <ValidationProvider name="Name" rules="required" v-slot="{ errors }">
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-2 col-form-label"
@@ -58,28 +59,30 @@
 import axios from "axios";
 
 export default {
-  name: "CreateUser",
-  data: () => ({
-    name: "",
-    avatar: "",
-    email: ""
-  }),
-
+  name: "EditUser",
+  data() {
+    return {
+      id: this.$route.params.id,
+      name: this.$route.params.userDetail.name,
+      avatar: this.$route.params.userDetail.avatar,
+      email: this.$route.params.userDetail.email
+    };
+  },
   methods: {
-    async onSubmit() {
+    async onSubmit(id) {
       // console.log(this.$refs);
       const isValid = await this.$refs.form.validate();
       console.log(isValid);
       if (!isValid) {
         return;
       } else {
-        this.submitForm();
-        alert("dang ki thanh cong");
+        this.submitForm(id);
+        alert("update thanh cong");
       }
     },
-    submitForm() {
+    submitForm(id) {
       axios
-        .post("https://60b850a2b54b0a0017c0364e.mockapi.io/users", {
+        .put("https://60b850a2b54b0a0017c0364e.mockapi.io/users/" + id, {
           name: this.name,
           avatar: this.avatar,
           email: this.email
@@ -94,4 +97,5 @@ export default {
   }
 };
 </script>
+
 <style scoped></style>
